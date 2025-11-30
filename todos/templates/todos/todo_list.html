@@ -1,0 +1,22 @@
+{% extends 'todos/base.html' %}
+
+{% block content %}
+<a href="{% url 'todo_create' %}">+ New TODO</a>
+
+<ul>
+  {% for todo in todos %}
+    <li>
+      <strong {% if todo.is_completed %}style="text-decoration: line-through;"{% endif %}>
+        {{ todo.title }}
+      </strong>
+      {% if todo.due_date %} (due: {{ todo.due_date }}){% endif %}
+      {% if todo.is_completed %} ✅{% endif %}
+      <br>
+      <a href="{% url 'todo_edit' todo.pk %}">Edit</a> |
+      <a href="{% url 'todo_delete' todo.pk %}">Delete</a>
+    </li>
+  {% empty %}
+    <li>No TODOs yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
